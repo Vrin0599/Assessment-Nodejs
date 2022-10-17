@@ -1,7 +1,6 @@
-// return number of male user and female user
+// Assessement task
 
 let express = require("express");
-let data = require("./taskData.json");
 let bodyParser = require("body-parser");
 
 var app = express();
@@ -14,9 +13,8 @@ app.use(bodyParser.json());
 // return number of male user and female user
 app.post("/getCount", function (req, res) {
   let mc = 0; // mc= Male Count
-  let fc = 0; // fc = Female Count
-
-  data.results.forEach((item) => {
+  let fc = 0; // fc = Female
+  req.body.results.forEach((item) => {
     if (item.gender === "male") {
       mc += 1;
     } else {
@@ -37,7 +35,7 @@ app.post("/getCount", function (req, res) {
 app.post("/getAge", function (req, res) {
   let ic = 0; // ic = Individual Count
 
-  data.results.forEach((item) => {
+  req.body.results.forEach((item) => {
     if (item.dob.age > 50 && item.dob.age < 70) {
       ic += 1;
     }
@@ -48,7 +46,8 @@ app.post("/getAge", function (req, res) {
 // return user full name and email use | as
 app.post("/getUserInfo", function (req, res) {
   let display = [];
-  data.results.forEach((item) => {
+
+  req.body.results.forEach((item) => {
     display.push(
       `${item.name.title} ${item.name.first} ${item.name.last} | ${item.email}`
     );
